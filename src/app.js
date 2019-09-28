@@ -112,10 +112,23 @@ app.get("/", (req, res) => {
   res.send("A GET Request");
 });
 
+app.get("/user", (req, res) => {
+  res.json(users);
+});
+
 app.delete("/user/:userId", (req, res) => {
   const { userId } = req.params;
-  console.log(userId);
-  res.send("Got it.");
+
+  const index = users.findIndex(u => u.id === userId);
+
+  // make sure we actually find a user with that id
+  if (index === -1) {
+    return res.status(404).send("User not found");
+  }
+
+  users.splice(index, 1);
+
+  res.status(204).end();
 });
 
 module.exports = app;
