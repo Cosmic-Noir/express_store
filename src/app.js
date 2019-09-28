@@ -112,4 +112,10 @@ app.get("/", (req, res) => {
   res.send("A GET Request");
 });
 
+app.delete("/user/:userId", (req, res) => {
+  const { userId } = req.params;
+  console.log(userId);
+  res.send("Got it.");
+});
+
 module.exports = app;
